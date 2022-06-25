@@ -13,23 +13,25 @@ public class Calculator {
         this.altitude = altitude;
         this.safetyFactor = safetyFactor;
         this.paratroopers = paratroopers;
+        calculateReleasePoint();
     }
 
     private int calculateDispersion () {
         return paratroopers / 2 * 50 / 100;
     }
 
-//    public void calculateReleasePoint () {
-//        double glidingDistance;
-//        glidingDistance = ((altitude - safetyFactor)*(windAverages.get(0) + canopySpeedConstant)
-//                / canopyDriftConstant);
-//        glidingDistance *= 1.85;
-////        glidingDistance += forwardThrow;
-////        glidingDistance += calculateDispersion();
-//
-//        glidingDistance = Math.round(glidingDistance * 100) / 100;
-//
-//        System.out.printf(glidingDistance + "km at " + windAverages.get(1) + " degrees");
-//    }
+    public void calculateReleasePoint () {
+        double glidingDistance;
+        WindCalculator windCalculator = new WindCalculator(altitude);
+        glidingDistance = ((altitude - safetyFactor)*(windCalculator.getAverageWindSpeed() + canopySpeedConstant)
+                / canopyDriftConstant);
+        glidingDistance *= 1.85;
+        glidingDistance += forwardThrow;
+        glidingDistance += calculateDispersion();
+
+        glidingDistance = Math.round(glidingDistance * 100) / 100;
+
+        System.out.printf(glidingDistance + "km at " + windCalculator.getAverageWindDirection() + " degrees");
+    }
 
 }
