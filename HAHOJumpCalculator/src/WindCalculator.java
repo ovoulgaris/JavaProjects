@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class WindCalculator {
 
-    private ArrayList<Integer> windSpeeds = new ArrayList<>();
-    private ArrayList<Integer> windDirections = new ArrayList<>();
+    private final ArrayList<Integer> windSpeeds = new ArrayList<>();
+    private final ArrayList<Integer> windDirections = new ArrayList<>();
     private double averageWindSpeed;
     private double averageWindDirection;
 
@@ -23,12 +23,11 @@ public class WindCalculator {
     }
 
     private void setWindData (int altitude) {
-        Scanner scanner = new Scanner(System.in);
         while (altitude > 0) {
             System.out.println("Enter wind velocity at " + altitude + "000 thousand feet.");
-            windSpeeds.add(scanner.nextInt());
+            windSpeeds.add(readInt());
             System.out.println("Enter wind direction at " + altitude + "000 thousand feet.");
-            windDirections.add(scanner.nextInt());
+            windDirections.add(readInt());
             if (altitude > 10) {
                 altitude -= 2;
             } else altitude -= 1;
@@ -49,5 +48,21 @@ public class WindCalculator {
             sum += arrayList.get(i);
         }
         return sum;
+    }
+
+    private int readInt() {
+        Scanner scanner = new Scanner(System.in);
+        int input = -1;
+        while (input <= 0){
+            while (!scanner.hasNextInt()) {
+                System.out.println("Error! Wrong input.");
+                scanner.nextLine();
+            }
+            input = scanner.nextInt();
+            if (input <= 0) {
+                System.out.println("You will need to input a number greater than 0");
+            }
+        }
+        return input;
     }
 }

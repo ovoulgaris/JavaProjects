@@ -1,13 +1,12 @@
 import java.util.ArrayList;
 
 public class Calculator {
-    private int altitude;
-    private int safetyFactor;
+    private final int altitude;
+    private final int safetyFactor;
 
-    private double forwardThrow = 0.3;
     private double canopySpeedConstant = 20.8;
     private int canopyDriftConstant = 48;
-    private final int paratroopers;
+    private int paratroopers;
 
     public Calculator(int altitude, int safetyFactor, int paratroopers) {
         this.altitude = altitude;
@@ -26,6 +25,7 @@ public class Calculator {
         glidingDistance = ((altitude - safetyFactor)*(windCalculator.getAverageWindSpeed() + canopySpeedConstant)
                 / canopyDriftConstant);
         glidingDistance *= 1.85;
+        double forwardThrow = 0.3;
         glidingDistance += forwardThrow;
         glidingDistance += calculateDispersion();
 
